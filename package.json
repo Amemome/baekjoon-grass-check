@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "ts-node src/main.ts"
+    "start": "ts-node src/main.ts"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,13 @@
   "devDependencies": {
     "ts-node": "^10.9.2",
     "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "baekjoon-grass-check": "file:",
+    "cli-table3": "^0.6.5",
+    "figlet": "^1.8.0",
+    "gradient-string": "^3.0.0",
+    "inquirer": "^12.5.0",
+    "ora": "^8.2.0"
   }
 }
