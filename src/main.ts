@@ -8,10 +8,11 @@ import ora from "ora";
 import Table from "cli-table3";
 import inquirer from "inquirer";
 import { grassGradient, kingGradient, randomGradient } from "./config/gradients";
-import { waitForEnter } from "./util/waitForEnter";
 import { FROM_DATE, TO_DATE } from "./config/config";
 import * as readline from 'readline/promises';
 import Lotto from "./util/Lotto";
+import drawLotto from "./drawLotto";
+import getUserInput from "./util/getUserInput";
 
 
 const summaryMap = new Map<string, CountSummary>();
@@ -29,6 +30,8 @@ async function FetchData() {
             console.log(error + ` HANDLE : ${handle}`);
         }
     }
+
+    Lotto.getInstance(summaryMap);
 }
 
 async function PrizeForTop() {
@@ -38,52 +41,42 @@ async function PrizeForTop() {
         } else {
             return b[1].attendedDays - a[1].attendedDays;
         }});
-    console.log(rainbow("🏆 최고의 선수 🏆 를 축하합니다!"));
+    console.log(rainbow("🏆 최고의 선수 🏆를 축하합니다!"));
     
     const table = new Table({
-        head: ['이름', '출석일수'],
-        colWidths: [20, 10],
+        head: ['이름', '출석일수', '푼 문제 수'],
+        colWidths: [40, 20, 20],
     })
 
     const [first, ...rest] = sorted;
-    table.push([kingGradient(`🥇 ${first[0]}`), first[1].attendedDays]);
+    table.push([kingGradient(`🥇 ${first[0]}`), first[1].attendedDays, first[1].totalSolved]);
 
     rest.forEach(([handle, summary]) => {
-        table.push([handle, summary.attendedDays]);
+        table.push([handle, summary.attendedDays, summary.totalSolved]);
     })
 
     console.log(table.toString());
-    
-    await waitForEnter(); 
 
     console.log("1등상은..." + kingGradient(first[0]) + "님 입니다!!");
     console.log(rainbow("🎉🎉🎉 축하합니다! 🎉🎉🎉"));
 }
 
 async function DrawLotto() {
-    console.log("DRQW");
-    drawLotto(summaryMap);
+    await drawLotto(summaryMap);
 }
 
 async function ExcludeName() {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout,
-    });
 
-    try {
-        const nickname: string = await rl.question("제외할 이름을 입력해주세요! ");
-        const lotto = Lotto.getInstance();
-        lotto.exclude(nickname);
-        console.log(nickname + "이 제외 목록에 추가 되었습니다!");
-    } finally {
-        rl.close();
-    }
 
+    const nickname = (await getUserInput("제외할 이름을 입력해주세요! ")).trim();
+    
+    const lotto = Lotto.getInstance();
+    lotto.exclude(nickname);
+    
 }
 
 async function mainMenu() {
-    
+    console.log();
     const { selected } = await inquirer.prompt({
         type: "list",
         name: "selected",

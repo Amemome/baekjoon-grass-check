@@ -31,7 +31,7 @@ class Lotto {
         return Lotto.instance;
     }
 
-    initAccArray(): void {
+    private initAccArray(): void {
         const dayAccArray: dayAcc[] =  [];
         let acc = 0;
 
@@ -54,7 +54,7 @@ class Lotto {
     }
 
     // 뽑는 함수. 일단 랜덤value 찾고 이탐 돌리면 됨.
-    draw(): string {
+    public draw(): string {
         const targetValue = Math.random() * this.EndofRange;
         let low = -1;
         let high = this.dayAccArray.length;
@@ -72,7 +72,7 @@ class Lotto {
         return this.dayAccArray[high].name;
     }
 
-    exclude(name: string): void {
+    public exclude(name: string): void {
         this.excludedNames.add(name);
         this.initAccArray();
     }
