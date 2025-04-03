@@ -2,7 +2,7 @@
   "name": "baekjoon-grass-check",
   "version": "1.0.0",
   "description": "solved.ac api 를 사용해서 기간 내에 얼마나 풀었는지 확인해주는 프로그램",
-  "main": "index.js",
+  "main": "main.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node src/main.ts"
@@ -12,8 +12,8 @@
     "url": "git+https://github.com/Amemome/baekjoon-grass-check.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Amemome",
+  "license": "MIT",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/Amemome/baekjoon-grass-check/issues"
@@ -24,11 +24,8 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "baekjoon-grass-check": "file:",
     "cli-table3": "^0.6.5",
-    "figlet": "^1.8.0",
     "gradient-string": "^3.0.0",
-    "inquirer": "^12.5.0",
-    "ora": "^8.2.0"
+    "inquirer": "^12.5.0"
   }
 }

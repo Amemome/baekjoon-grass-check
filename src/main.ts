@@ -1,15 +1,12 @@
 
-import gradient from "gradient-string";
 import { rainbow } from "gradient-string";
 import { PARTICIPANTS } from "./config/participants";
 import countDate, { CountSummary } from "./countDate";
 import fetchGrass from "./fetchGrass";
-import ora from "ora";
 import Table from "cli-table3";
 import inquirer from "inquirer";
 import { grassGradient, kingGradient, randomGradient } from "./config/gradients";
 import { FROM_DATE, TO_DATE } from "./config/config";
-import * as readline from 'readline/promises';
 import Lotto from "./util/Lotto";
 import drawLotto from "./drawLotto";
 import getUserInput from "./util/getUserInput";
