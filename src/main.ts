@@ -10,6 +10,8 @@ import inquirer from "inquirer";
 import { grassGradient, kingGradient, randomGradient } from "./config/gradients";
 import { waitForEnter } from "./util/waitForEnter";
 import { FROM_DATE, TO_DATE } from "./config/config";
+import * as readline from 'readline/promises';
+import Lotto from "./util/Lotto";
 
 
 const summaryMap = new Map<string, CountSummary>();
@@ -19,7 +21,7 @@ async function FetchData() {
     for (const handle of PARTICIPANTS) {
         try {
             const grass = await fetchGrass(handle);
-            const summary:CountSummary = countDate(FROM_DATE, TO_DATE, grass);
+            const summary: CountSummary = countDate(FROM_DATE, TO_DATE, grass);
             summaryMap.set(handle, summary);
             console.log(randomGradient()(`${handle} ${summary.attendedDays} ${summary.totalSolved} ok 👌`));
 
@@ -54,15 +56,34 @@ async function PrizeForTop() {
     
     await waitForEnter(); 
 
-    console.log("1등상은..." +kingGradient(first[0]) + "님 입니다!!");
+    console.log("1등상은..." + kingGradient(first[0]) + "님 입니다!!");
     console.log(rainbow("🎉🎉🎉 축하합니다! 🎉🎉🎉"));
 }
 
 async function DrawLotto() {
     console.log("DRQW");
+    drawLotto(summaryMap);
+}
+
+async function ExcludeName() {
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout,
+    });
+
+    try {
+        const nickname: string = await rl.question("제외할 이름을 입력해주세요! ");
+        const lotto = Lotto.getInstance();
+        lotto.exclude(nickname);
+        console.log(nickname + "이 제외 목록에 추가 되었습니다!");
+    } finally {
+        rl.close();
+    }
+
 }
 
 async function mainMenu() {
+    
     const { selected } = await inquirer.prompt({
         type: "list",
         name: "selected",
@@ -70,8 +91,9 @@ async function mainMenu() {
         choices: [
             { name: "☘️ 잔디 데이터 불러오기", value: "fetch" },
             { name: "🎲 추첨 시작하기", value: "draw" },
+            { name: "🙂‍↔️ 추첨에서 제외하기", value: "exclude" },
             { name: "🏆 상위 1명 선정하기!!", value: "prize" },
-            { name: "❌ 종료하기", value: "exit" }
+            { name: "❌ 종료하기", value: "exit" },
         ]
     })
 
@@ -82,6 +104,10 @@ async function mainMenu() {
             break;
         case "draw":
             await DrawLotto();
+            mainMenu();
+            break;
+        case "exclude":
+            await ExcludeName();
             mainMenu();
             break;
         case "prize":
