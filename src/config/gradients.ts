@@ -6,6 +6,31 @@ export const grassGradient = gradient([
     "#00b894" 
 ])
 
+export const oceanGradient = gradient([
+    "#00B4DB",
+    "#0083B0" 
+]);
+
+export const sunsetGradient = gradient([
+    "#ff7e5f",
+    "#feb47b"  
+]);
+
+export const purpleHazeGradient = gradient([
+    "#654ea3", 
+    "#eaafc8"  
+]);
+
+export const neonGlowGradient = gradient([
+    "#39ff14",
+    "#f90093"  
+]);
+
+export const fireGradient = gradient([
+    "#f12711", 
+    "#f5af19" 
+]);
+
 export const kingGradient = gradient(["#FFD700", "#FFF700"])
 
 
