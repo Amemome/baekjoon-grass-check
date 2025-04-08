@@ -17,11 +17,12 @@ src/ : 소스코드가 위치하는 디렉토리 입니다.
 참가자 명단을 설정하기 위해 아래 파일을 수정합니다:
 `/src/config/participants.ts`
 
-```export const participants = [
+```typescript
+export const participants = [
   "user1",
   "user2",
   "user3",
-  // 여기에 유저 이름을 추가합니다.
+  // 여기에 유저 이름을 추가
 ];
 ```
 3. 프로그램 실행
