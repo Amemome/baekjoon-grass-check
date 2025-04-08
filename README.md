@@ -5,9 +5,9 @@
 
 src/ : 소스코드가 위치하는 디렉토리 입니다.
 
-config/participants.ts: 추첨에 참여할 유저 목록을 설정하는 파일입니다.
-config/gradients.ts: 텍스트 색상을 정의하는 파일입니다.
-config/config.ts: 가중치 함수와 시작과 끝 날을 설정하는 파일입니다.
+- config/participants.ts: 추첨에 참여할 유저 목록을 설정하는 파일입니다.
+- config/gradients.ts: 텍스트 색상을 정의하는 파일입니다.
+- config/config.ts: 가중치 함수와 시작과 끝 날을 설정하는 파일입니다.
 
 ## 🛠️ 사용 방법
 
