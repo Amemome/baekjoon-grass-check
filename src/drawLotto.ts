@@ -1,7 +1,7 @@
 import { fireGradient, grassGradient, oceanGradient, purpleHazeGradient } from "./config/gradients";
 import { CountSummary } from "./countDate";
 import getUserInput from "./util/getUserInput";
-import Lotto from "./util/Lotto";
+import Lotto from "./Lotto";
 import inquirer from 'inquirer';
 
 async function drawLotto(summaryMap: Map<string, CountSummary>) {

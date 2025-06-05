@@ -1,5 +1,5 @@
-import { WEIGHT_FUNCTION } from "../config/config";
-import { CountSummary } from "../countDate";
+import { WEIGHT_FUNCTION } from "./config/config";
+import { CountSummary } from "./countDate";
 
 export type dayAcc = {
     name: string;
