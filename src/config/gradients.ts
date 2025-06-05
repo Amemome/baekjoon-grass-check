@@ -33,7 +33,6 @@ export const fireGradient = gradient([
 
 export const kingGradient = gradient(["#FFD700", "#FFF700"])
 
-
 export function randomGradient() {
     const grads = [
         "#ff0062",

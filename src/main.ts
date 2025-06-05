@@ -7,10 +7,49 @@ import Table from "cli-table3";
 import inquirer from "inquirer";
 import { grassGradient, kingGradient, randomGradient } from "./config/gradients";
 import { FROM_DATE, TO_DATE } from "./config/config";
-import Lotto from "./util/Lotto";
+import Lotto from "./Lotto";
 import drawLotto from "./drawLotto";
 import getUserInput from "./util/getUserInput";
 
+
+async function mainMenu() {
+    let exit = false;  
+    while(!exit) {
+        console.log();
+        const { selected } = await inquirer.prompt({
+            type: "list",
+            name: "selected",
+            message: "옵션을 선택해주세요!",
+            choices: [
+                { name: "☘️ 잔디 데이터 불러오기", value: "fetch" },
+                { name: "🎲 추첨 시작하기", value: "draw" },
+                { name: "🙂‍↔️ 추첨에서 제외하기", value: "exclude" },
+                { name: "🏆 상위 1명 선정하기!!", value: "prize" },
+                { name: "❌ 종료하기", value: "exit" },
+            ]
+        })
+    
+        switch (selected) {
+            case "fetch":
+                await FetchData();
+                break;
+            case "draw":
+                await DrawLotto();
+                break;
+            case "exclude":
+                await ExcludeName();
+                break;
+            case "prize":
+                await PrizeForTop();
+                break;
+            case "exit":
+                exit = true;
+                break;
+        }
+    }
+}
+
+mainMenu();
 
 const summaryMap = new Map<string, CountSummary>();
 
@@ -63,50 +102,8 @@ async function DrawLotto() {
 }
 
 async function ExcludeName() {
-
-
     const nickname = (await getUserInput("제외할 이름을 입력해주세요! ")).trim();
     
     const lotto = Lotto.getInstance();
     lotto.exclude(nickname);
-    
 }
-
-async function mainMenu() {
-    console.log();
-    const { selected } = await inquirer.prompt({
-        type: "list",
-        name: "selected",
-        message: "옵션을 선택해주세요!",
-        choices: [
-            { name: "☘️ 잔디 데이터 불러오기", value: "fetch" },
-            { name: "🎲 추첨 시작하기", value: "draw" },
-            { name: "🙂‍↔️ 추첨에서 제외하기", value: "exclude" },
-            { name: "🏆 상위 1명 선정하기!!", value: "prize" },
-            { name: "❌ 종료하기", value: "exit" },
-        ]
-    })
-
-    switch (selected) {
-        case "fetch":
-            await FetchData();
-            mainMenu();
-            break;
-        case "draw":
-            await DrawLotto();
-            mainMenu();
-            break;
-        case "exclude":
-            await ExcludeName();
-            mainMenu();
-            break;
-        case "prize":
-            await PrizeForTop();
-            mainMenu();
-            break;
-        case "exit":
-            break;
-    }
-}
-
-mainMenu();

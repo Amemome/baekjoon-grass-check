@@ -19,10 +19,10 @@ async function fetchGrass(username: string): Promise<Grass[]> {
 
         const data = await response.json();
         const grass: Grass[] = data.grass
-            .filter((g: any) => typeof g.value === "number")
+            .filter((g: any) => typeof g.value === "number" || g.value === "repaired-incremented")
             .map((g: any) => ({
                 date: new Date(g.date),
-                value: g.value,
+                value: typeof g.value === "number" ? g.value : 0,
         }));
         
         return grass;
